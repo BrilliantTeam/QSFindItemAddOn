@@ -13,6 +13,7 @@
  * Violations will result in a ban of your plugin and account from bStats.
  */
 package io.myzticbean.finditemaddon.metrics;
+import io.myzticbean.finditemaddon.utils.ScheduleUtil;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -102,7 +103,7 @@ public class Metrics {
                         enabled,
                         this::appendPlatformData,
                         this::appendServiceData,
-                        submitDataTask -> Bukkit.getScheduler().runTask(plugin, submitDataTask),
+                        submitDataTask -> ScheduleUtil.GLOBAL.runTask(plugin, submitDataTask),
                         plugin::isEnabled,
                         (message, error) -> this.plugin.getLogger().log(Level.WARNING, message, error),
                         (message) -> this.plugin.getLogger().log(Level.INFO, message),

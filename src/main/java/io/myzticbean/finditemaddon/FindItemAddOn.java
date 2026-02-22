@@ -42,6 +42,7 @@ import io.myzticbean.finditemaddon.utils.async.VirtualThreadScheduler;
 import io.myzticbean.finditemaddon.utils.json.ShopSearchActivityStorageUtil;
 import io.myzticbean.finditemaddon.utils.log.Logger;
 import io.myzticbean.finditemaddon.utils.UpdateChecker;
+import io.myzticbean.finditemaddon.utils.ScheduleUtil;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import me.kodysimpson.simpapi.colors.ColorTranslator;
@@ -161,7 +162,7 @@ public final class FindItemAddOn extends JavaPlugin {
         initCommands();
 
         // Run plugin startup logic after server is done loading
-        Bukkit.getScheduler().scheduleSyncDelayedTask(FindItemAddOn.getInstance(), this::runPluginStartupTasks);
+        ScheduleUtil.GLOBAL.runTaskLater(this, this::runPluginStartupTasks, 1L);
     }
 
     @Override
@@ -218,7 +219,7 @@ public final class FindItemAddOn extends JavaPlugin {
 
         // Initiate batch tasks
         Logger.logInfo("Registering tasks");
-        Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Task15MinInterval(), 0, REPEATING_TASK_SCHEDULE_MINS);
+        ScheduleUtil.GLOBAL.runTaskTimer(this, new Task15MinInterval(), 0, REPEATING_TASK_SCHEDULE_MINS);
 
         // init metrics
         Logger.logInfo("Registering anonymous bStats metrics");

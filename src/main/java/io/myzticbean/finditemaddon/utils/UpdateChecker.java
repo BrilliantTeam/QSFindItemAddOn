@@ -23,6 +23,7 @@ import io.myzticbean.finditemaddon.models.enums.PlayerPermsEnum;
 import io.myzticbean.finditemaddon.utils.api.modrinth.ModrinthService;
 import io.myzticbean.finditemaddon.utils.async.VirtualThreadScheduler;
 import io.myzticbean.finditemaddon.utils.log.Logger;
+import io.myzticbean.finditemaddon.utils.ScheduleUtil;
 import me.kodysimpson.simpapi.colors.ColorTranslator;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -84,7 +85,7 @@ public class UpdateChecker {
 
     @Deprecated(since = "v2.0.7.7")
     public void getLatestVersion(Consumer<String> consumer) {
-        Bukkit.getScheduler().runTaskAsynchronously(FindItemAddOn.getInstance(), () -> {
+        ScheduleUtil.GLOBAL.runTaskAsynchronously(FindItemAddOn.getInstance(), () -> {
             try (
                     InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + FindItemAddOn.getPluginID()).openStream();
                     Scanner scanner = new Scanner(inputStream)) {

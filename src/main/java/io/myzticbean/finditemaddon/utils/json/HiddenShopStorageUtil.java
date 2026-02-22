@@ -25,6 +25,7 @@ import io.myzticbean.finditemaddon.models.HiddenShopModel;
 import io.myzticbean.finditemaddon.models.ShopSearchActivityModel;
 import io.myzticbean.finditemaddon.utils.async.VirtualThreadScheduler;
 import io.myzticbean.finditemaddon.utils.log.Logger;
+import io.myzticbean.finditemaddon.utils.ScheduleUtil;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -57,7 +58,7 @@ public class HiddenShopStorageUtil {
      */
     @Deprecated(since = "v2.0.7.7")
     public static void handleShopSearchVisibilityAsync(Shop shop, boolean hideShop) {
-        Bukkit.getScheduler().runTaskAsynchronously(FindItemAddOn.getInstance(), () -> {
+        ScheduleUtil.GLOBAL.runTaskAsynchronously(FindItemAddOn.getInstance(), () -> {
             Iterator<ShopSearchActivityModel> shopSearchActivityIterator = ShopSearchActivityStorageUtil.getGlobalShopsList().iterator();
             int i = 0;
             while(shopSearchActivityIterator.hasNext()) {

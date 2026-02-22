@@ -12,6 +12,7 @@ softdepend:
   - Essentials
   - Residence
   - BentoBox
+folia-supported: true
 
 permissions:
   finditem.use:

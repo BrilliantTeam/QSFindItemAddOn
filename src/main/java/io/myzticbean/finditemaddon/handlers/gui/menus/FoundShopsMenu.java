@@ -39,6 +39,7 @@ import io.myzticbean.finditemaddon.utils.warp.EssentialWarpsUtil;
 import io.myzticbean.finditemaddon.utils.warp.PlayerWarpsUtil;
 import io.myzticbean.finditemaddon.utils.warp.ResidenceUtils;
 import io.myzticbean.finditemaddon.utils.warp.WGRegionUtils;
+import io.myzticbean.finditemaddon.utils.ScheduleUtil;
 import io.papermc.lib.PaperLib;
 import me.kodysimpson.simpapi.colors.ColorTranslator;
 import org.apache.commons.lang3.StringUtils;
@@ -335,10 +336,7 @@ public class FoundShopsMenu extends PaginatedMenu {
             player.sendMessage(ColorTranslator.translateColorCodes(
                     configProvider.PLUGIN_PREFIX + replaceDelayPlaceholder(tpDelayMsg, delay)));
         }
-        Bukkit.getScheduler().scheduleSyncDelayedTask(
-                FindItemAddOn.getInstance(),
-                () -> PaperLib.teleportAsync(player, locToTeleport, PlayerTeleportEvent.TeleportCause.PLUGIN),
-                delay * 20);
+        ScheduleUtil.ENTITY.runTaskLater(FindItemAddOn.getInstance(), player, () -> player.teleport(locToTeleport), delay * 20L);
     }
 
     /**
